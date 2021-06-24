@@ -11,6 +11,7 @@ phases:
     commands:
       - echo Build started on `date`
       - ./mvnw clean package -Dmaven.test.skip=true && sh target/manage.sh update
+      - ./mvnw clean package -Pnative -Dmaven.test.skip=true && sh target/manage.sh native update
   post_build:
     commands:
       - echo Build completed on `date`
