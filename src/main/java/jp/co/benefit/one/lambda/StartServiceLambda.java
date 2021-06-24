@@ -1,12 +1,14 @@
 package jp.co.benefit.one.lambda;
 
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.jboss.logging.Logger;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import jp.co.benefit.one.lambda.request.StartServiceRequest;
-import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.StartDbClusterRequest;
@@ -16,15 +18,17 @@ import software.amazon.awssdk.services.rds.model.StartDbClusterRequest;
  *
  * @author Daisuke Wakita
  */
-@Slf4j
 @Named("StartServiceLambda")
 public class StartServiceLambda implements RequestHandler<StartServiceRequest, String> {
+
+    @Inject
+    Logger log;
 
 
     @Override
     public String handleRequest(StartServiceRequest input, Context context) {
 
-        log.info("[input]{}", input);
+        log.infof("[input]{}", input);
 
         Region region = Region.AP_NORTHEAST_1;
 

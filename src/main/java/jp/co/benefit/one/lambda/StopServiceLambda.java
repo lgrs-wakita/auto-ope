@@ -1,12 +1,14 @@
 package jp.co.benefit.one.lambda;
 
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.jboss.logging.Logger;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import jp.co.benefit.one.lambda.request.StopServiceRequest;
-import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.StopDbClusterRequest;
 import software.amazon.awssdk.utils.CollectionUtils;
@@ -17,14 +19,16 @@ import software.amazon.awssdk.utils.CollectionUtils;
  *
  * @author Daisuke Wakita
  */
-@Slf4j
 @Named("StopServiceLambda")
 public class StopServiceLambda implements RequestHandler<StopServiceRequest, String> {
+
+    @Inject
+    Logger log;
 
     @Override
     public String handleRequest(StopServiceRequest input, Context context) {
 
-        log.info("[input]{}", input);
+        log.infof("[input]{}", input);
         if (input == null) {
             log.warn("StopServiceRequest is null.");
             return "StopServiceRequest is null.";
