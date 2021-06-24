@@ -1,0 +1,19 @@
+version: 0.2
+env:
+  shell: bash
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+  build:
+    commands:
+      - echo Build started on `date`
+      - ./mvnw clean package -Dmaven.test.skip=true && LAMBDA_ROLE_ARN="arn:aws:iam::166509097052:role/auto-ope-role" sh target/manage.sh create
+  post_build:
+    commands:
+      - echo Build completed on `date`
+cache:
+  paths:
+    - "/root/.m2/**/*"
