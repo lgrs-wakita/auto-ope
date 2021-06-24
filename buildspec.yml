@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - ./mvnw clean package -Pnative -Dmaven.test.skip=true && LAMBDA_ROLE_ARN="arn:aws:iam::166509097052:role/auto-ope-role" sh target/manage.sh native update
+      - ./mvnw clean package -Dmaven.test.skip=true && LAMBDA_ROLE_ARN="arn:aws:iam::166509097052:role/auto-ope-role" sh target/manage.sh update
   post_build:
     commands:
       - echo Build completed on `date`
